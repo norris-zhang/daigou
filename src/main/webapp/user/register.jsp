@@ -37,23 +37,21 @@
 		</div>
 		<div>
 			<a href="#">首页</a>
-			&gt;<span>登录</span>
+			&gt;<span>注册</span>
 		</div>
 		<form class="form-signin">
-			<h1 class="h3 mb-3 font-weight-normal">老用户登录</h1>
+			<h1 class="h3 mb-3 font-weight-normal">新用户注册</h1>
 			<label for="inputEmail" class="sr-only">登录邮箱</label>
-			<input type="email" id="inputEmail" name="loginid" class="form-control" value="" placeholder="登录邮箱" required="required" autofocus="autofocus"/>
+			<input type="email" id="inputEmail" name="loginId" class="form-control" value="" placeholder="登录邮箱" required="required" autofocus="autofocus"/>
 			<label for="inputPassword" class="sr-only">登录密码</label>
 			<input type="password" id="inputPassword" name="password" class="form-control" placeholder="登录密码" required="required"/>
-			<div class="checkbox mb-3">
-				<label>
-					<input type="checkbox" value="remember-me"> 记住我
-				</label>
-				<a href="#" style="float: right;">忘记密码</a>
-			</div>
-			<button class="btn btn-lg btn-primary btn-block" type="submit">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
+			<label for="confirmPwdId" class="sr-only">确认密码</label>
+			<input type="password" id="confirmPwdId" name="confirmPwd" class="form-control" placeholder="确认密码" required="required"/>
+			<label for="inviteCodeId" class="sr-only">VIP邀请码</label>
+			<input type="text" id="inviteCodeId" name="inviteCode" class="form-control" value="" placeholder="VIP邀请码" required="required" autofocus="autofocus"/>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">注&nbsp;&nbsp;&nbsp;&nbsp;册</button>
 			<div style="padding: 20px;">
-				<a href="${ctx}/user/register.jsp">注册新用户</a>
+				<a href="${ctx}/user/login.jsp">老用户登录</a>
 			</div>
 		</form>
 		<%@ include file="/fragments/footer.jsp" %>

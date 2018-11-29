@@ -19,7 +19,6 @@
 <link href="${bootstrap}/dist/css/navbar.css?v=${cssv}" rel="stylesheet">
 <link href="${bootstrap}/dist/css/navbar-top-fixed.css?v=${cssv}" rel="stylesheet">
 <link href="${bootstrap}/dist/css/grid.css?v=${cssv}" rel="stylesheet">
-<link href="${bootstrap}/dist/css/signin.css?v=${cssv}" rel="stylesheet">
 <style type="text/css">
 .center {
 	display: block;
@@ -30,33 +29,37 @@
 </head>
 
 <body>
-	<jsp:include page="/fragments/nav.jsp"></jsp:include>
+	<jsp:include page="/admin/fragments/nav.jsp"></jsp:include>
 	<main role="main" class="container">
 		<div>
-			<img alt="" src="${ctx}/images/logo.png" class="center" style="width: 100%;">
+			<a href="#">首页</a>
+			&gt;&gt;
+			<a href="#">邀请码管理</a>
+			&gt;&gt;
+			<a href="#">生成邀请码</a>
 		</div>
 		<div>
-			<a href="#">首页</a>
-			&gt;<span>登录</span>
+			<form action="#" method="post">
+				<div class="form-group">
+					<label>邀请码</label>
+					<input type="text" class="form-control" name="inviteCode" value="123456" readonly="readonly">
+				</div>
+				<div class="form-group">
+					<label for="realName">姓名</label>
+					<input type="text" class="form-control" id="realName" name="realName" placeholder="姓名">
+				</div>
+				<div class="form-group">
+					<label for="wxName">微信姓名</label>
+					<input type="text" class="form-control" id="wxName" name="wxName" placeholder="微信名">
+				</div>
+				<div class="form-group">
+					<label for="wxid">微信ID</label>
+					<input type="text" class="form-control" id="wxid" name="wxid" placeholder="微信ID">
+				</div>
+				<button type="submit" class="btn btn-primary">创建</button>
+				<button type="button" class="btn btn-secondary">取消</button>
+			</form>
 		</div>
-		<form class="form-signin">
-			<h1 class="h3 mb-3 font-weight-normal">老用户登录</h1>
-			<label for="inputEmail" class="sr-only">登录邮箱</label>
-			<input type="email" id="inputEmail" name="loginid" class="form-control" value="" placeholder="登录邮箱" required="required" autofocus="autofocus"/>
-			<label for="inputPassword" class="sr-only">登录密码</label>
-			<input type="password" id="inputPassword" name="password" class="form-control" placeholder="登录密码" required="required"/>
-			<div class="checkbox mb-3">
-				<label>
-					<input type="checkbox" value="remember-me"> 记住我
-				</label>
-				<a href="#" style="float: right;">忘记密码</a>
-			</div>
-			<button class="btn btn-lg btn-primary btn-block" type="submit">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
-			<div style="padding: 20px;">
-				<a href="${ctx}/user/register.jsp">注册新用户</a>
-			</div>
-		</form>
-		<%@ include file="/fragments/footer.jsp" %>
 	</main>
 
 	<!-- Bootstrap core JavaScript
