@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE urlrewrite
+	PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+	"http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+
+<urlrewrite>
+
+	<rule>
+		<note>bootstrap styles</note>
+		<from>^/bootstrap-4.1.3/(.*)$</from>
+		<to type="forward">/bootstrap-4.1.3/$1</to>
+	</rule>
+
+	<rule>
+		<note>Images</note>
+		<from>^/images/(.*)$</from>
+		<to type="forward">/images/$1</to>
+	</rule>
+
+	<rule>
+		<note>Home page</note>
+		<from>^/$</from>
+		<to type="forward">/s/</to>
+	</rule>
+
+	<rule>
+		<note></note>
+		<from>^/admin/saveinvitecode$</from>
+		<to type="forward">/s/admin/saveinvitecode</to>
+	</rule>
+
+<!-- 
+	<rule match-type="wildcard">
+		<from>/blog/archive/**</from>
+		<to type="redirect">/roller/history/$1</to>
+	</rule>
+ -->
+</urlrewrite>
