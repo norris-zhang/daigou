@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/fragments/includes.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -39,78 +40,33 @@
 		</div>
 		<div>热销商品</div>
 		<div>
-			<div class="row">
+			<c:set var="needCloseRow" value="false"></c:set>
+			<c:forEach items="${prodList}" var="prod" varStatus="vs">
+				<c:if test="${vs.index % 3 eq 0 }">
+					<div class="row">
+					<c:set var="needCloseRow" value="true"></c:set>
+				</c:if>
 				<div class="col-md-4">
 					<a href="${ctx}/product/product-info.jsp">
 						<img alt="" src="${ctx}/prototype-images/milkbites1.jpg" class="center" style="width: 80%;"/>
 						<div>
-							<h4>【双11特价】Healtheries贺寿利 儿童牛奶咀嚼片 草莓味 50片 Healtheries Milk Bites Strawberry Flavour 50 bites 保质期2020年1月</h4>
+							<h4>${prod.title }</h4>
 						</div>
 						<div>
 							<h5>￥45.00</h5>
 						</div>
 					</a>
 				</div>
-				<div class="col-md-4">
-					<a href="${ctx}/product/product-info.jsp">
-						<img alt="" src="${ctx}/prototype-images/milkbites1.jpg" class="center" style="width: 80%;"/>
-						<div>
-							<h4>【双11特价】Healtheries贺寿利 儿童牛奶咀嚼片 草莓味 50片 Healtheries Milk Bites Strawberry Flavour 50 bites 保质期2020年1月</h4>
-						</div>
-						<div>
-							<h5>￥45.00</h5>
-						</div>
-					</a>
+				<c:if test="${vs.index % 3 eq 2 }">
+					</div>
+					<c:set var="needCloseRow" value="false"></c:set>
+				</c:if>
+			</c:forEach>
+			<c:if test="${needCloseRow eq 'true' }">
 				</div>
-				<div class="col-md-4">
-					<a href="${ctx}/product/product-info.jsp">
-						<img alt="" src="${ctx}/prototype-images/milkbites1.jpg" class="center" style="width: 80%;"/>
-						<div>
-							<h4>【双11特价】Healtheries贺寿利 儿童牛奶咀嚼片 草莓味 50片 Healtheries Milk Bites Strawberry Flavour 50 bites 保质期2020年1月</h4>
-						</div>
-						<div>
-							<h5>￥45.00</h5>
-						</div>
-					</a>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<a href="${ctx}/product/product-info.jsp">
-						<img alt="" src="${ctx}/prototype-images/milkbites1.jpg" class="center" style="width: 80%;"/>
-						<div>
-							<h4>【双11特价】Healtheries贺寿利 儿童牛奶咀嚼片 草莓味 50片 Healtheries Milk Bites Strawberry Flavour 50 bites 保质期2020年1月</h4>
-						</div>
-						<div>
-							<h5>￥45.00</h5>
-						</div>
-					</a>
-				</div>
-				<div class="col-md-4">
-					<a href="${ctx}/product/product-info.jsp">
-						<img alt="" src="${ctx}/prototype-images/milkbites1.jpg" class="center" style="width: 80%;"/>
-						<div>
-							<h4>【双11特价】Healtheries贺寿利 儿童牛奶咀嚼片 草莓味 50片 Healtheries Milk Bites Strawberry Flavour 50 bites 保质期2020年1月</h4>
-						</div>
-						<div>
-							<h5>￥45.00</h5>
-						</div>
-					</a>
-				</div>
-				<div class="col-md-4">
-					<a href="${ctx}/product/product-info.jsp">
-						<img alt="" src="${ctx}/prototype-images/milkbites1.jpg" class="center" style="width: 80%;"/>
-						<div>
-							<h4>【双11特价】Healtheries贺寿利 儿童牛奶咀嚼片 草莓味 50片 Healtheries Milk Bites Strawberry Flavour 50 bites 保质期2020年1月</h4>
-						</div>
-						<div>
-							<h5>￥45.00</h5>
-						</div>
-					</a>
-				</div>
-			</div>
+			</c:if>
 		</div>
-		<div>
+		<div id="loadingGif" style="display: none;" data-current-page="1">
 			<img alt="" src="${ctx}/images/loading-gif.svg" class="center" style="width: 40px; height: 40px;"/>
 		</div>
 		<%@ include file="/fragments/footer.jsp" %>
@@ -125,5 +81,38 @@
 	<script>window.jQuery || document.write('<script src="${bootstrap}/site/docs/4.1/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
 	<script src="${bootstrap}/site/docs/4.1/assets/js/vendor/popper.min.js"></script>
 	<script src="${bootstrap}/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(window).scroll(function() {
+			var scrollTop = $(this).scrollTop(); // distance from top
+			var scrollHeight = $(document).height(); // total height
+			var windowHeight = $(this).height(); // visible height
+			if (scrollTop + windowHeight == scrollHeight) {
+				triggerLoadNextPage();
+			}
+		});
+		function loadNextPage() {
+			var currentPage = $("#loadingGif").data("current-page");
+			if (!currentPage) {
+				currentPage = 1;
+			}
+			$.getJSON("${ctx}/products/bestsellings",
+				{
+					p:currentPage + 1,
+					v:new Date().getTime()
+				},
+				function(json) {
+					
+				}
+			);
+		}
+		function triggerLoadNextPage() {
+			var isHidden = $("#loadingGif").is(":hidden");
+			if (!isHidden) {
+				return; // If the loading gif is showing, do not request again.
+			}
+			$("#loadingGif").show();
+			loadNextPage();
+		}
+	</script>
 </body>
 </html>

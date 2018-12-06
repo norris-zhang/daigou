@@ -35,6 +35,8 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>com.daigou.datamodel.InviteCode</value>
+				<value>com.daigou.datamodel.BestSelling</value>
+				<value>com.daigou.datamodel.Product</value>
 			</list>
 		</property>
 	</bean>

@@ -51,7 +51,7 @@
 		<!-- 因为urlrewrite.xml只能在web-inf下，所以我们这里可以省略掉urlrewrite.xml的路径配置。 -->
 		<init-param>
 			<param-name>logLevel</param-name>
-			<param-value>DEBUG</param-value>
+			<param-value>WARN</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>

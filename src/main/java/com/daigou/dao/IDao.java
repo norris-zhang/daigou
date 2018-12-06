@@ -15,6 +15,7 @@ public interface IDao<T extends BaseEntity> {
 	void executeNativeUpdate(String sql, Object... args);
 	T get(Serializable id);
 	List<T> queryList(String hql, Object... args);
+	List<T> queryList(Page page, String... orderBys);
 	List<T> queryListNamedParameters(String hql, Object... args);
 	List<T> queryList(String hql, Page page, Object... args);
 	List<T> queryListNamedParameters(String hql, Page page, Object... args);

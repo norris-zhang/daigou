@@ -77,6 +77,23 @@ public abstract class BaseDao<T extends BaseEntity> implements IDao<T> {
 	public T get(Serializable id) {
 		return getSession().get(getGenericClass(), id);
 	}
+	public List<T> queryList(Page page, String... orderBys) {
+		String hql = "from " + getGenericClass().getName();
+		if (orderBys != null && orderBys.length > 0) {
+			StringBuilder sb = new StringBuilder();
+			for (String ob : orderBys) {
+				sb.append(",").append(ob);
+			}
+			hql += " order by " + sb.substring(1);
+		}
+		@SuppressWarnings("unchecked")
+		TypedQuery<T> query = getSession().createQuery(hql);
+		if (page != null) {
+			query.setFirstResult(page.getStartRowNum());
+			query.setMaxResults(page.getPageSize());
+		}
+		return query.getResultList();
+	}
 	@Override
 	public List<T> queryList(String hql, Object... args) {
 		@SuppressWarnings("unchecked")

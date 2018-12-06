@@ -24,6 +24,11 @@
 	</rule>
 
 	<rule>
+		<from>^/products/bestsellings$</from>
+		<to type="forward">/s/products/bestsellings</to>
+	</rule>
+
+	<rule>
 		<note></note>
 		<from>^/admin/saveinvitecode$</from>
 		<to type="forward">/s/admin/saveinvitecode</to>
