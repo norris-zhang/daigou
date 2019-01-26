@@ -37,6 +37,11 @@
 				<value>com.daigou.datamodel.InviteCode</value>
 				<value>com.daigou.datamodel.BestSelling</value>
 				<value>com.daigou.datamodel.Product</value>
+				<value>com.daigou.datamodel.dgou_product</value>
+				<value>com.daigou.datamodel.dgou_product_category</value>
+				<value>com.daigou.datamodel.dgou_guige</value>
+				<value>com.daigou.datamodel.dgou_price</value>
+				<value>com.daigou.datamodel.dgou_picture</value>
 			</list>
 		</property>
 	</bean>

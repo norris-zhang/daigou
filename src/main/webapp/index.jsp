@@ -47,13 +47,15 @@
 					<c:set var="needCloseRow" value="true"></c:set>
 				</c:if>
 				<div class="col-md-4">
-					<a href="${ctx}/product/product-info.jsp">
-						<img alt="" src="${ctx}/prototype-images/milkbites1.jpg" class="center" style="width: 80%;"/>
+					<a href="${ctx}/product/${prod.prod_id}">
+						<img alt="" src="${ctx}/${prod.mainPicPath}" class="center" style="width: 80%;"/>
 						<div>
-							<h4>${prod.title }</h4>
+							<h4>${prod.prod_title }</h4>
 						</div>
 						<div>
-							<h5>￥45.00</h5>
+							<c:forEach items="${prod.effectivePrices }" var="pricePair">
+								<h5>${pricePair.key.guge.guge_display } * ${pricePair.key.count }: ￥${pricePair.value.prce_amount }</h5>
+							</c:forEach>
 						</div>
 					</a>
 				</div>

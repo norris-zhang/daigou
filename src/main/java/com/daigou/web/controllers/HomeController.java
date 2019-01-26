@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.daigou.common.paging.Page;
-import com.daigou.datamodel.Product;
+import com.daigou.datamodel.dgou_product;
 import com.daigou.service.ProductService;
 
 @Controller
@@ -21,7 +21,7 @@ public class HomeController extends BaseController {
 	@RequestMapping(value= {"", "/"}, method=RequestMethod.GET)
 	public ModelAndView home(Model model) throws Exception {
 		Page page = new Page(1, 30);
-		List<Product> prodList = productService.getBestSellings(page);
+		List<dgou_product> prodList = productService.getAllProducts(page);
 		model.addAttribute("prodList", prodList);
 		model.addAttribute("isLastPage", page.getCurrentPage() >= page.getTotalPages());
 		return new ModelAndView("/index.jsp", model.asMap());

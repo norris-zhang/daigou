@@ -24,8 +24,8 @@
 	</rule>
 
 	<rule>
-		<from>^/products/bestsellings$</from>
-		<to type="forward">/s/products/bestsellings</to>
+		<from>^/product/(\d+)$</from>
+		<to type="forward">/s/product/$1</to>
 	</rule>
 
 	<rule>

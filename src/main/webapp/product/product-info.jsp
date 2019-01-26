@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/fragments/includes.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -44,20 +46,17 @@
 		</div>
 		<div>
 			<a href="${ctx}">首页</a>
-			&gt;<a href="#">所有商品</a>
-			&gt;<a href="${ctx}/product/product-list.jsp">营养保健</a>
-			&gt;Healtheries贺寿利 儿童牛奶咀嚼片 草莓味 50片
+			&gt;<a href="${ctx}">所有商品</a>
+			&gt;<a href="${ctx}/product-category/${prod.prca.prca_id}">${prod.prca.prca_name }</a>
+			&gt;${prod.prod_name }
 		</div>
 		<div>
-			<img alt="" src="${ctx}/prototype-images/milkbites1.jpg" class="center" style="width: 100%;"/>
-			<h4>【双11特价】Healtheries贺寿利 儿童牛奶咀嚼片 草莓味 50片 Healtheries Milk Bites Strawberry Flavour 50 bites 保质期2020年1月</h4>
-			<form action="#" method="post">
-				<select class="form-control" style="background-color: #04cee6;">
-					<option>60粒</option>
-				</select>
-			</form>
+			<img alt="" src="${ctx}/${prod.mainPicPath}" class="center" style="width: 100%;"/>
+			<h4>${prod.prod_title }</h4>
 			<hr class="hrdelimiter"/>
-			<div style="background-color: #D9534F; height: 30px; text-align: center; color: #fff;"><h5>￥45.00</h5></div>
+			<c:forEach items="${prod.effectivePrices }" var="price">
+				<div style="background-color: #D9534F; height: 30px; text-align: center; color: #fff;"><h5>${price.key.guge.guge_display} &times; ${price.key.count} ￥<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${price.value.prce_amount }"/></h5></div>
+			</c:forEach>
 			<hr class="hrdelimiter"/>
 			<form action="#" method="post">
 				<div class="row" style="background-color: #04cee6; margin-left: 0; margin-right: 0;">
@@ -67,16 +66,7 @@
 				</div>
 			</form>
 			<hr class="hrdelimiter"/>
-			<div>
-				<p>【产品规格】 60粒
-				<br/>【产品产地】 新西兰
-				<br/>【产品包装】 瓶装
-				<br/>【保质期限】 具体日期请以收到实物为准
-				<br/>【适用人群】 成人
-				<br/>【产品成分】 奶蓟草提取物
-				<br/>【注意事项】 按照瓶身说明服用，如果正在服用其他药物，请咨询医生
-				<br/>【使用说明】 1天1粒，可以随时服用，或遵医嘱</p>
-			</div>
+			<div>${prod.prod_description }</div>
 		</div>
 		<%@ include file="/fragments/footer.jsp" %>
 	</main>
