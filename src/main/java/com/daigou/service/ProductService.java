@@ -10,4 +10,5 @@ public interface ProductService {
 	List<Product> getBestSellings(Page page);
 	List<dgou_product> getAllProducts(Page page);
 	dgou_product getProduct(Long id);
+	List<dgou_product> getProductsByCategory(Long cateId, Page page);
 }

@@ -47,13 +47,7 @@ public class ProductServiceImpl implements ProductService {
 		page.setTotalRecords(count);
 		List<dgou_product> prodList = productDao.queryList(page, "prod_last_updated desc");
 		for (dgou_product prod : prodList) {
-			if (!Hibernate.isInitialized(prod.getPrceList())) {
-				Hibernate.initialize(prod.getPrceList());
-			}
-			setProdEffectivePrices(prod);
-			if (!Hibernate.isInitialized(prod.getPictList())) {
-				Hibernate.initialize(prod.getPictList());
-			}
+			initializeProduct(prod);
 		}
 		
 		return prodList;
@@ -84,9 +78,28 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return null;
 	}
+
 	@Override
 	public dgou_product getProduct(Long id) {
 		dgou_product prod = productDao.get(id);
+		initializeProduct(prod);
+		return prod;
+	}
+
+	@Override
+	public List<dgou_product> getProductsByCategory(Long cateId, Page page) {
+		String hql = "select count(id) from dgou_product where prca.prca_id=:cateId";
+		int count = productDao.queryCountNamedParameters(hql, "cateId", cateId);
+		page.setTotalRecords(count);
+
+		hql = "from dgou_product where prca.prca_id=:cateId order by prod_last_updated desc";
+		List<dgou_product> prodList = productDao.queryListNamedParameters(hql, page, "cateId", cateId);
+		for (dgou_product prod : prodList) {
+			initializeProduct(prod);
+		}
+		return prodList;
+	}
+	private void initializeProduct(dgou_product prod) {
 		if (!Hibernate.isInitialized(prod.getPrceList())) {
 			Hibernate.initialize(prod.getPrceList());
 		}
@@ -94,7 +107,6 @@ public class ProductServiceImpl implements ProductService {
 		if (!Hibernate.isInitialized(prod.getPictList())) {
 			Hibernate.initialize(prod.getPictList());
 		}
-		return prod;
 	}
 
 }

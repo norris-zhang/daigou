@@ -97,7 +97,7 @@
 			if (!currentPage) {
 				currentPage = 1;
 			}
-			$.getJSON("${ctx}/products/bestsellings",
+			$.getJSON("${ctx}${requestURI}",
 				{
 					p:currentPage + 1,
 					v:new Date().getTime()

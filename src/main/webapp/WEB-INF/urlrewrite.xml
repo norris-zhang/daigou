@@ -29,6 +29,11 @@
 	</rule>
 
 	<rule>
+		<from>^/product/category/(\d+)$</from>
+		<to type="forward">/s/product/category/$1</to>
+	</rule>
+
+	<rule>
 		<note></note>
 		<from>^/admin/saveinvitecode$</from>
 		<to type="forward">/s/admin/saveinvitecode</to>

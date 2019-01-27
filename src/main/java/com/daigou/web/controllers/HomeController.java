@@ -24,6 +24,7 @@ public class HomeController extends BaseController {
 		List<dgou_product> prodList = productService.getAllProducts(page);
 		model.addAttribute("prodList", prodList);
 		model.addAttribute("isLastPage", page.getCurrentPage() >= page.getTotalPages());
+		model.addAttribute("requestURI", "/");
 		return new ModelAndView("/index.jsp", model.asMap());
 	}
 }

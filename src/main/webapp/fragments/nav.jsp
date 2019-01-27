@@ -13,13 +13,13 @@
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" id="dropdown01" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">所有商品</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown01">
-						<a href="${ctx}/product/product-list.jsp" class="dropdown-item">营养保健</a>
-						<a href="#" class="dropdown-item">护肤美体</a>
-						<a href="#" class="dropdown-item">纯净蜂蜜</a>
-						<a href="#" class="dropdown-item">奶粉直邮</a>
-						<a href="#" class="dropdown-item">母婴呵护</a>
-						<a href="#" class="dropdown-item">生活日用</a>
-						<a href="#" class="dropdown-item">特色零食</a>
+						<a href="${ctx}/product/category/3" class="dropdown-item">营养保健</a>
+						<a href="${ctx}/product/category/5" class="dropdown-item">护肤美体</a>
+						<a href="${ctx}/product/category/2" class="dropdown-item">纯净蜂蜜</a>
+						<a href="${ctx}/product/category/1" class="dropdown-item">奶粉直邮</a>
+						<a href="${ctx}/product/category/4" class="dropdown-item">母婴呵护</a>
+						<a href="${ctx}/product/category/6" class="dropdown-item">生活日用</a>
+						<a href="${ctx}/product/category/7" class="dropdown-item">特色零食</a>
 					</div>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="#">打折专区</a></li>
