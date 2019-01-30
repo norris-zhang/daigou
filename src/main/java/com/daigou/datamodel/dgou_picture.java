@@ -2,6 +2,8 @@ package com.daigou.datamodel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,12 +15,13 @@ public class dgou_picture extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long pict_id;
 	@ManyToOne
 	@JoinColumn(name="pict_for_prod_id")
 	private dgou_product forProd;
 	@Column
-	private String pict_is_primary;
+	private String pict_is_primary = "N";
 	@Column
 	private String pict_original_file_name;
 	@Column

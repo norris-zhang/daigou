@@ -33,10 +33,10 @@
 	<jsp:include page="/fragments/nav.jsp"></jsp:include>
 	<main role="main" class="container">
 		<div>
-			<img alt="" src="${ctx}/images/logo.png" class="center" style="width: 100%;">
+			<img alt="" src="${ctx}/images/logo.png?v=${cssv}" class="center" style="width: 100%;">
 		</div>
 		<div>
-			<a href="#">首页</a>
+			<a href="${ctx}/">首页</a>
 		</div>
 		<div>热销商品</div>
 		<div>

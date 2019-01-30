@@ -42,20 +42,21 @@
 	<jsp:include page="/fragments/nav.jsp"></jsp:include>
 	<main role="main" class="container">
 		<div>
-			<img alt="" src="${ctx}/images/logo.png" class="center" style="width: 100%;">
+			<img alt="" src="${ctx}/images/logo.png?v=${cssv}" class="center" style="width: 100%;">
 		</div>
 		<div>
-			<a href="${ctx}">首页</a>
-			&gt;<a href="${ctx}">所有商品</a>
-			&gt;<a href="${ctx}/product-category/${prod.prca.prca_id}">${prod.prca.prca_name }</a>
+			<a href="${ctx}/">首页</a>
+			&gt;<a href="${ctx}/">所有商品</a>
+			&gt;<a href="${ctx}/product/category/${prod.prca.prca_id}">${prod.prca.prca_name }</a>
 			&gt;${prod.prod_name }
 		</div>
 		<div>
-			<img alt="" src="${ctx}/${prod.mainPicPath}" class="center" style="width: 100%;"/>
+			<img alt="" src="${ctx}/${prod.mainPicPath}" class="center" style="width: 80%;"/>
 			<h4>${prod.prod_title }</h4>
 			<hr class="hrdelimiter"/>
 			<c:forEach items="${prod.effectivePrices }" var="price">
-				<div style="background-color: #D9534F; height: 30px; text-align: center; color: #fff;"><h5>${price.key.guge.guge_display} &times; ${price.key.count} ￥<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${price.value.prce_amount }"/></h5></div>
+				<div style="background-color: #D9534F; height: 30px; text-align: center; color: #fff;"><h5>${price.key.guge.guge_display} &times; ${price.key.count} ￥<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${price.value.prce_amount }"/> +
+				￥<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${prod.prod_gross_weight * price.key.count * 40 }"/>(运费)</h5></div>
 			</c:forEach>
 			<hr class="hrdelimiter"/>
 			<form action="#" method="post">

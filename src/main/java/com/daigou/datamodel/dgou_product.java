@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,7 +17,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.daigou.common.PictureFunctions;
 import com.daigou.datamodel.transience.PriceKey;
 
 @Entity
@@ -24,6 +25,7 @@ public class dgou_product extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long prod_id;
 	@ManyToOne
 	@JoinColumn(name="prod_prca_id")
@@ -117,6 +119,6 @@ public class dgou_product extends BaseEntity {
 		this.effectivePrices.put(priceKey, prce);
 	}
 	public String getMainPicPath() {
-		return PictureFunctions.getPath(pictList.get(0).getPict_id(), pictList.get(0).getPict_file_extension());
+		return "picture/" + pictList.get(0).getPict_id();
 	}
 }

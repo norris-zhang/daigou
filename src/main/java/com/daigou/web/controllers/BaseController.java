@@ -46,4 +46,27 @@ public class BaseController {
 		};
 		return new ModelAndView(v);
 	}
+	protected ModelAndView pictureModelAndView(byte[] data, String extension) {
+		View v = new View() {
+			public void render(java.util.Map<String,?> model, HttpServletRequest request, HttpServletResponse response)
+					throws Exception {
+				response.getOutputStream().write(data);
+			};
+			@Override
+			public String getContentType() {
+				if ("jpg".equalsIgnoreCase(extension)
+						|| "jpeg".equalsIgnoreCase(extension)) {
+					return "image/jpeg";
+				}
+				if ("gif".equalsIgnoreCase(extension)) {
+					return "image/gif";
+				}
+				if ("png".equalsIgnoreCase(extension)) {
+					return "image/png";
+				}
+				return View.super.getContentType();
+			}
+		};
+		return new ModelAndView(v);
+	}
 }

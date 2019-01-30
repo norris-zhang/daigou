@@ -34,11 +34,25 @@
 	</rule>
 
 	<rule>
+		<from>^/picture/(\d+)$</from>
+		<to type="forward">/s/picture/$1</to>
+	</rule>
+
+	<rule>
 		<note></note>
 		<from>^/admin/saveinvitecode$</from>
 		<to type="forward">/s/admin/saveinvitecode</to>
 	</rule>
 
+	<rule>
+		<from>^/admin/product/add$</from>
+		<to type="forward">/s/admin/product/add</to>
+	</rule>
+
+	<rule>
+		<from>^/admin/picupload$</from>
+		<to type="forward">/s/admin/picupload</to>
+	</rule>
 <!-- 
 	<rule match-type="wildcard">
 		<from>/blog/archive/**</from>
