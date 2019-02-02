@@ -22,6 +22,9 @@ public class PictureController extends BaseController {
 	public ModelAndView viewProduct(@PathVariable Long id, Model model) {
 		dgou_picture pict = pictureService.getPicture(id);
 		byte[] data = PictureFunctions.getPictureData(pict.getPict_id(), pict.getPict_file_extension());
+		if (data == null || data.length == 0) {
+			return contextRedirect("/images/nerdy-dog.jpg", model);
+		}
 		return pictureModelAndView(data, pict.getPict_file_extension());
 	}
 }

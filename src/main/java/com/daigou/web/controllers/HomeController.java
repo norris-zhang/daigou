@@ -20,7 +20,7 @@ public class HomeController extends BaseController {
 	}
 	@RequestMapping(value= {"", "/"}, method=RequestMethod.GET)
 	public ModelAndView home(Model model) throws Exception {
-		Page page = new Page(1, 30);
+		Page page = new Page(1, 20);
 		List<dgou_product> prodList = productService.getAllProducts(page);
 		model.addAttribute("prodList", prodList);
 		model.addAttribute("isLastPage", page.getCurrentPage() >= page.getTotalPages());

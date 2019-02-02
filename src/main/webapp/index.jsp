@@ -42,11 +42,11 @@
 		<div>
 			<c:set var="needCloseRow" value="false"></c:set>
 			<c:forEach items="${prodList}" var="prod" varStatus="vs">
-				<c:if test="${vs.index % 3 eq 0 }">
+				<c:if test="${vs.index % 4 eq 0 }">
 					<div class="row">
 					<c:set var="needCloseRow" value="true"></c:set>
 				</c:if>
-				<div class="col-md-4">
+				<div class="col-lg-3 col-6">
 					<a href="${ctx}/product/${prod.prod_id}">
 						<img alt="" src="${ctx}/${prod.mainPicPath}" class="center" style="width: 80%;"/>
 						<div>
@@ -59,7 +59,7 @@
 						</div>
 					</a>
 				</div>
-				<c:if test="${vs.index % 3 eq 2 }">
+				<c:if test="${vs.index % 4 eq 3 }">
 					</div>
 					<c:set var="needCloseRow" value="false"></c:set>
 				</c:if>

@@ -29,7 +29,7 @@ public class ProductController extends BaseController {
 	}
 	@RequestMapping(value="/category/{cateId}", method=GET)
 	public ModelAndView viewProductByCategory(@PathVariable Long cateId, Model model) {
-		Page page = new Page(1, 30);
+		Page page = new Page(1, 20);
 		List<dgou_product> prodList = productService.getProductsByCategory(cateId, page);
 		model.addAttribute("prodList", prodList);
 		model.addAttribute("isLastPage", page.getCurrentPage() >= page.getTotalPages());

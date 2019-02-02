@@ -119,6 +119,9 @@ public class dgou_product extends BaseEntity {
 		this.effectivePrices.put(priceKey, prce);
 	}
 	public String getMainPicPath() {
+		if (pictList == null || pictList.size() == 0) {
+			return "images/nerdy-dog.jpg";
+		}
 		return "picture/" + pictList.get(0).getPict_id();
 	}
 }
