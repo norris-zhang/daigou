@@ -50,14 +50,18 @@
 					<a href="${ctx}/product/${prod.prod_id}">
 						<img alt="" src="${ctx}/${prod.mainPicPath}" class="center" style="width: 80%;"/>
 						<div>
-							<h4>${prod.prod_title }</h4>
+							<h5>${prod.prod_title }</h5>
 						</div>
 						<div>
 							<c:forEach items="${prod.effectivePrices }" var="pricePair">
-								<h5>${pricePair.key.guge.guge_display } * ${pricePair.key.count }: ￥${pricePair.value.prce_amount }</h5>
+								<h6>${pricePair.key.guge.guge_display } * ${pricePair.key.count }: ￥${pricePair.value.prce_amount }</h6>
 							</c:forEach>
 						</div>
 					</a>
+					<c:if test="${not empty loginUser && loginUser.user.user_is_admin eq 'Y'}">
+						<a href="#">修改</a>
+						<a href="${ctx}/admin/product/price/${prod.prod_id}">改价</a>
+					</c:if>
 				</div>
 				<c:if test="${vs.index % 4 eq 3 }">
 					</div>

@@ -46,6 +46,14 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<filter>
+		<filter-name>LoginFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter>
 		<filter-name>UrlRewriteFilter</filter-name>
 		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
 		<!-- 因为urlrewrite.xml只能在web-inf下，所以我们这里可以省略掉urlrewrite.xml的路径配置。 -->

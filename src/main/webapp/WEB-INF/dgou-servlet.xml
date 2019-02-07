@@ -45,6 +45,7 @@
 				<value>com.daigou.datamodel.dgou_guige</value>
 				<value>com.daigou.datamodel.dgou_price</value>
 				<value>com.daigou.datamodel.dgou_picture</value>
+				<value>com.daigou.datamodel.dgou_user</value>
 			</list>
 		</property>
 	</bean>

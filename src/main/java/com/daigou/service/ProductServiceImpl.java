@@ -76,6 +76,17 @@ public class ProductServiceImpl implements ProductService {
 		return prodList;
 	}
 	private void setProdEffectivePrices(dgou_product prod) {
+		prod.getPrceList().sort((p1, p2) -> {
+			Long p1GugeId = p1.getGuge().getGuge_id();
+			Long p2GugeId = p2.getGuge().getGuge_id();
+			if (!p1GugeId.equals(p2GugeId)) {
+				return p1.getGuge().getGuge_amount().compareTo(p2.getGuge().getGuge_amount());
+			}
+			if (p1.getPrce_count() != p2.getPrce_count()) {
+				return p1.getPrce_count() - p2.getPrce_count();
+			}
+			return p2.getPrce_effective_date().compareTo(p1.getPrce_effective_date());
+		});
 		prod.getPrceList().forEach(prce -> {
 			PriceKey priceKey = new PriceKey(prce.getGuge(), prce.getPrce_count());
 			dgou_price p = prod.getEffectivePrices().get(priceKey);

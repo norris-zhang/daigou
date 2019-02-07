@@ -39,7 +39,8 @@
 			<a href="#">首页</a>
 			&gt;<span>登录</span>
 		</div>
-		<form class="form-signin">
+		<form class="form-signin" action="${ctx}/user/login" method="post">
+			<input type="hidden" name="redPath" value="${redPath}"/>
 			<h1 class="h3 mb-3 font-weight-normal">老用户登录</h1>
 			<label for="inputEmail" class="sr-only">登录邮箱</label>
 			<input type="email" id="inputEmail" name="loginid" class="form-control" value="" placeholder="登录邮箱" required="required" autofocus="autofocus"/>
@@ -47,7 +48,7 @@
 			<input type="password" id="inputPassword" name="password" class="form-control" placeholder="登录密码" required="required"/>
 			<div class="checkbox mb-3">
 				<label>
-					<input type="checkbox" value="remember-me"> 记住我
+					<input type="checkbox" value="Y" name="rememberMe"/> 记住我
 				</label>
 				<a href="#" style="float: right;">忘记密码</a>
 			</div>

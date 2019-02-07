@@ -53,6 +53,17 @@
 		<from>^/admin/picupload$</from>
 		<to type="forward">/s/admin/picupload</to>
 	</rule>
+
+	<rule>
+		<from>^/admin/product/price/(\d+)$</from>
+		<to type="forward">/s/admin/product/price/$1</to>
+	</rule>
+
+	<rule>
+		<from>^/user/login$</from>
+		<to type="forward">/s/user/login</to>
+	</rule>
+
 <!-- 
 	<rule match-type="wildcard">
 		<from>/blog/archive/**</from>

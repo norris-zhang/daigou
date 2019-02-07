@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.daigou.common.PictureFunctions;
 import com.daigou.datamodel.dgou_guige;
 import com.daigou.datamodel.dgou_picture;
+import com.daigou.datamodel.dgou_product;
 import com.daigou.datamodel.dgou_product_category;
 import com.daigou.service.PictureService;
 import com.daigou.service.ProductCategoryService;
@@ -48,7 +50,7 @@ public class AdminController extends BaseController {
 		return new ModelAndView("/admin/product/addProduct.jsp", model.asMap());
 	}
 	@RequestMapping(value="/admin/product/add", method=POST)
-	public ModelAndView saveProduct(@Valid @ModelAttribute("employee") ProductForm product, 
+	public ModelAndView saveProduct(@Valid @ModelAttribute("product") ProductForm product, 
 		      BindingResult result, RedirectAttributes redirAttrs) {
 		productService.addProduct(product);
 		List<dgou_product_category> categoryList = productCategoryService.getAllCategories();
@@ -66,5 +68,13 @@ public class AdminController extends BaseController {
 		pictureService.save(pict);
 		PictureFunctions.savePicture(pict.getPict_id(), pict.getPict_file_extension(), file.getInputStream());
 		return stringModelAndView(pict.getPict_id().toString());
+	}
+	@RequestMapping(value="/admin/product/price/{prodId}", method=GET)
+	public ModelAndView listProduct(@PathVariable Long prodId, Model model) {
+		dgou_product prod = productService.getProduct(prodId);
+		model.addAttribute("prod", prod);
+		List<dgou_guige> guigeList = productService.getAllGuige();
+		model.addAttribute("guigeList", guigeList);
+		return new ModelAndView("/admin/product/updatePrice.jsp", model.asMap());
 	}
 }
