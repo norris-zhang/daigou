@@ -63,7 +63,7 @@
 				<div class="row" style="background-color: #04cee6; margin-left: 0; margin-right: 0;">
 					<div class="col-4 stuffed text-center" style="padding-top: 7px; color: #fff;"><label for="buyno">购买数量：</label></div>
 					<div class="col-4 stuffed"><input class="form-control" type="number" name="buyno" value="1" id="buyno"/></div>
-					<div class="col-4 stuffed"><button class="form-control" type="submit" style="background-color: #04cee6; color: #fff;">加入购物车</button></div>
+					<div class="col-4 stuffed"><button class="form-control" type="button" onclick="return constructing()" style="background-color: #04cee6; color: #fff;">加入购物车</button></div>
 				</div>
 			</form>
 			<hr class="hrdelimiter"/>
@@ -81,5 +81,11 @@
 	<script>window.jQuery || document.write('<script src="${bootstrap}/site/docs/4.1/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
 	<script src="${bootstrap}/site/docs/4.1/assets/js/vendor/popper.min.js"></script>
 	<script src="${bootstrap}/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		function constructing() {
+			alert("建设中，暂时不能使用在线购买功能，请联系店主");
+			return false;
+		}
+	</script>
 </body>
 </html>
