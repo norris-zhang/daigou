@@ -1,6 +1,7 @@
 package com.daigou.service.dto;
 
 public class ProductForm {
+	private Long prodId;
 	private Long productCategory;
 	private String productName;
 	private String productNameEn;
@@ -16,6 +17,12 @@ public class ProductForm {
 	private Double priceAmount;
 	private Double costCny;
 	private Double costNzd;
+	public Long getProdId() {
+		return prodId;
+	}
+	public void setProdId(Long prodId) {
+		this.prodId = prodId;
+	}
 	public Long getProductCategory() {
 		return productCategory;
 	}

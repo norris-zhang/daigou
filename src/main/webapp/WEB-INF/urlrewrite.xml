@@ -60,6 +60,11 @@
 	</rule>
 
 	<rule>
+		<from>^/admin/product/price/update$</from>
+		<to type="forward">/s/admin/product/price/update</to>
+	</rule>
+
+	<rule>
 		<from>^/user/login$</from>
 		<to type="forward">/s/user/login</to>
 	</rule>

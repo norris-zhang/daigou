@@ -197,5 +197,10 @@ public class ProductServiceImpl implements ProductService {
 		productDao.save(prod);
 		return prod;
 	}
+	@Override
+	public void updatePrice(ProductForm product) {
+		dgou_product prod = productDao.get(product.getProdId());
+		savePrice(product, prod);
+	}
 
 }

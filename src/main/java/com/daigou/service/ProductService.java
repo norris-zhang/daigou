@@ -17,4 +17,5 @@ public interface ProductService {
 	List<dgou_product> getProductsByCategory(Long cateId, Page page);
 	List<dgou_guige> getAllGuige();
 	void addProduct(@Valid ProductForm product);
+	void updatePrice(ProductForm product);
 }

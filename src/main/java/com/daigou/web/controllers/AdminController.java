@@ -53,10 +53,6 @@ public class AdminController extends BaseController {
 	public ModelAndView saveProduct(@Valid @ModelAttribute("product") ProductForm product, 
 		      BindingResult result, RedirectAttributes redirAttrs) {
 		productService.addProduct(product);
-		List<dgou_product_category> categoryList = productCategoryService.getAllCategories();
-		redirAttrs.addFlashAttribute("categoryList", categoryList);
-		List<dgou_guige> guigeList = productService.getAllGuige();
-		redirAttrs.addFlashAttribute("guigeList", guigeList);
 		return new ModelAndView("redirect:/admin/product/add", redirAttrs.asMap());
 	}
 	@RequestMapping(value="/admin/picupload", method=POST)
@@ -70,11 +66,17 @@ public class AdminController extends BaseController {
 		return stringModelAndView(pict.getPict_id().toString());
 	}
 	@RequestMapping(value="/admin/product/price/{prodId}", method=GET)
-	public ModelAndView listProduct(@PathVariable Long prodId, Model model) {
+	public ModelAndView updatePrice(@PathVariable Long prodId, Model model) {
 		dgou_product prod = productService.getProduct(prodId);
 		model.addAttribute("prod", prod);
 		List<dgou_guige> guigeList = productService.getAllGuige();
 		model.addAttribute("guigeList", guigeList);
 		return new ModelAndView("/admin/product/updatePrice.jsp", model.asMap());
+	}
+	@RequestMapping(value="/admin/product/price/update", method=POST)
+	public ModelAndView updatePrice(@Valid @ModelAttribute("price") ProductForm price, 
+			BindingResult result, RedirectAttributes redirAttrs) {
+		productService.updatePrice(price);
+		return new ModelAndView("redirect:/admin/product/price/" + price.getProdId(), redirAttrs.asMap());
 	}
 }

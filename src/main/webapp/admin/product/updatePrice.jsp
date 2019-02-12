@@ -81,7 +81,7 @@
 					<label for="costNzd">纽币成本</label>
 					<input type="number" step="0.01" class="form-control" id="costNzd" name="costNzd" placeholder="纽币成本">
 				</div>
-				<button type="submit" class="btn btn-primary">上传</button>
+				<button type="submit" class="btn btn-primary">修改</button>
 			</form>
 			<table border="1">
 				<tr>
