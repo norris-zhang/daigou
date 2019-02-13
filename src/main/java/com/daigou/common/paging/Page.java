@@ -1,7 +1,7 @@
 package com.daigou.common.paging;
 
 public class Page {
-	public static final int DEFAULT_PAGE_SIZE = 100;
+	public static final int DEFAULT_PAGE_SIZE = 20;
 	private int currentPage;
 	private int pageSize;
 
@@ -11,6 +11,10 @@ public class Page {
 
 	public Page() {
 		
+	}
+	public Page(int currentPage) {
+		this.currentPage = currentPage;
+		this.pageSize = DEFAULT_PAGE_SIZE;
 	}
 	public Page(int currentPage, int pageSize) {
 		this.currentPage = currentPage;
@@ -45,8 +49,6 @@ public class Page {
 
 		totalPages = totalRecords == 0 ? 1 :
 			(totalRecords % pageSize == 0 ? totalRecords / pageSize : totalRecords / pageSize + 1);
-
-		if (currentPage > totalPages) currentPage = totalPages;
 
 		startRowNum = (currentPage - 1) * pageSize;
 		if (startRowNum < 0) startRowNum = 0;

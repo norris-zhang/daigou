@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.daigou.common.paging.Page;
@@ -28,12 +29,18 @@ public class ProductController extends BaseController {
 		return new ModelAndView("/product/product-info.jsp", model.asMap());
 	}
 	@RequestMapping(value="/category/{cateId}", method=GET)
-	public ModelAndView viewProductByCategory(@PathVariable Long cateId, Model model) {
-		Page page = new Page(1, 20);
+	public ModelAndView viewProductByCategory(@PathVariable Long cateId, @RequestParam(required=false, name="p", defaultValue="1") int pageNumber, Model model) {
+		Page page = new Page(pageNumber);
 		List<dgou_product> prodList = productService.getProductsByCategory(cateId, page);
 		model.addAttribute("prodList", prodList);
 		model.addAttribute("isLastPage", page.getCurrentPage() >= page.getTotalPages());
 		model.addAttribute("requestURI", "/product/category/" + cateId);
-		return new ModelAndView("/index.jsp", model.asMap());
+		if (pageNumber == 1) {
+			return new ModelAndView("/index.jsp", model.asMap());
+		} else if (prodList.size() == 0) {
+			return stringModelAndView("");
+		} else {
+			return new ModelAndView("/product/product-list.jsp");
+		}
 	}
 }

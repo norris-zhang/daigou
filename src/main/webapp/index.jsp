@@ -39,7 +39,7 @@
 			<a href="${ctx}/">首页</a>
 		</div>
 		<div>热销商品</div>
-		<div>
+		<div id="productRows">
 			<c:set var="needCloseRow" value="false"></c:set>
 			<c:forEach items="${prodList}" var="prod" varStatus="vs">
 				<c:if test="${vs.index % 4 eq 0 }">
@@ -81,18 +81,17 @@
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script>window.jQuery || document.write('<script src="${bootstrap}/site/docs/4.1/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+	<script type="text/javascript" src="${ctx}/js/jquery-3.3.1.min.js"></script>
 	<script src="${bootstrap}/site/docs/4.1/assets/js/vendor/popper.min.js"></script>
 	<script src="${bootstrap}/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
+		var hasNextPage = true;
 		$(window).scroll(function() {
 			var scrollTop = $(this).scrollTop(); // distance from top
 			var scrollHeight = $(document).height(); // total height
 			var windowHeight = $(this).height(); // visible height
-			if (scrollTop + windowHeight == scrollHeight) {
+			var footerHeight = $("#bottom-links").height();
+			if (scrollTop + windowHeight >= scrollHeight - footerHeight) {
 				triggerLoadNextPage();
 			}
 		});
@@ -101,20 +100,32 @@
 			if (!currentPage) {
 				currentPage = 1;
 			}
-			$.getJSON("${ctx}${requestURI}",
+			$.get("${ctx}${requestURI}",
 				{
 					p:currentPage + 1,
 					v:new Date().getTime()
 				},
-				function(json) {
-					
+				function(text) {
+					if (!text) {
+						hasNextPage = false;
+						$("#loadingGif").hide();
+						return false;
+					}
+					$("#loadingGif").data("current-page", currentPage + 1);
+					$("#productRows").append(text);
+					$("#loadingGif").hide();
+					return false;
 				}
 			);
 		}
 		function triggerLoadNextPage() {
+			if (!hasNextPage) {
+				$("#loadingGif").hide();
+				return false;
+			}
 			var isHidden = $("#loadingGif").is(":hidden");
 			if (!isHidden) {
-				return; // If the loading gif is showing, do not request again.
+				return false; // If the loading gif is showing, do not request again.
 			}
 			$("#loadingGif").show();
 			loadNextPage();
