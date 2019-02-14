@@ -37,8 +37,9 @@
 		</div>
 		<div>
 			<a href="${ctx}/">首页</a>
+			&gt;
+			<span>${empty cateName ? '热销商品' : cateName}</span>
 		</div>
-		<div>热销商品</div>
 		<div id="productRows">
 			<c:set var="needCloseRow" value="false"></c:set>
 			<c:forEach items="${prodList}" var="prod" varStatus="vs">

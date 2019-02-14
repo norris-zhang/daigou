@@ -34,6 +34,11 @@
 	</rule>
 
 	<rule>
+		<from>^/product/customerlist$</from>
+		<to type="forward">/s/product/customerlist</to>
+	</rule>
+
+	<rule>
 		<from>^/picture/(\d+)$</from>
 		<to type="forward">/s/picture/$1</to>
 	</rule>

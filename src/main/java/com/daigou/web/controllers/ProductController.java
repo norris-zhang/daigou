@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,6 +36,9 @@ public class ProductController extends BaseController {
 		model.addAttribute("prodList", prodList);
 		model.addAttribute("isLastPage", page.getCurrentPage() >= page.getTotalPages());
 		model.addAttribute("requestURI", "/product/category/" + cateId);
+		if (prodList.size() > 0) {
+			model.addAttribute("cateName", prodList.get(0).getPrca().getPrca_name());
+		}
 		if (pageNumber == 1) {
 			return new ModelAndView("/index.jsp", model.asMap());
 		} else if (prodList.size() == 0) {
@@ -42,5 +46,12 @@ public class ProductController extends BaseController {
 		} else {
 			return new ModelAndView("/product/product-list.jsp");
 		}
+	}
+	@RequestMapping(value="/customerlist", method=RequestMethod.GET)
+	public ModelAndView customerList(@RequestParam(required=false, name="ids", defaultValue="") long[] ids, Model model) throws Exception {
+		List<dgou_product> prodList = productService.getProducts(ids);
+		model.addAttribute("prodList", prodList);
+		model.addAttribute("requestURI", "/");
+		return new ModelAndView("/product/customer-list.jsp", model.asMap());
 	}
 }

@@ -4,10 +4,10 @@
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<a class="navbar-brand" href="#">呆狗</a>
+		<a class="navbar-brand" href="${ctx}/">呆狗</a>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="#">首页
+				<li class="nav-item active"><a class="nav-link" href="${ctx}/">首页
 						<span class="sr-only">(current)</span>
 				</a></li>
 				<li class="nav-item dropdown">

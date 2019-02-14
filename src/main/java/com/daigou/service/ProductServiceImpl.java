@@ -4,6 +4,7 @@ import static com.daigou.common.DateFunctions.getStartOfDay;
 import static com.daigou.common.DateFunctions.getSystemDate;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -202,5 +203,20 @@ public class ProductServiceImpl implements ProductService {
 		dgou_product prod = productDao.get(product.getProdId());
 		savePrice(product, prod);
 	}
-
+	@Override
+	public List<dgou_product> getProducts(long[] ids) {
+		if (ids == null || ids.length == 0) {
+			return Collections.emptyList();
+		}
+		String hql = "from dgou_product where prod_id in :ids";
+		List<Long> idList = new ArrayList<>();
+		for (long id : ids) {
+			idList.add(id);
+		}
+		List<dgou_product> prodList = productDao.queryListNamedParameters(hql, "ids", idList);
+		for (dgou_product prod : prodList) {
+			initializeProduct(prod);
+		}
+		return prodList;
+	}
 }
