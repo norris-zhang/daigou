@@ -1,23 +1,31 @@
 package com.daigou.web.controllers;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.daigou.common.JsonFunctions;
 import com.daigou.common.paging.Page;
 import com.daigou.datamodel.dgou_product;
 import com.daigou.service.ProductService;
+import com.daigou.service.dto.SearchForm;
 
 @Controller
 @RequestMapping("/product")
@@ -33,7 +41,8 @@ public class ProductController extends BaseController {
 		return new ModelAndView("/product/product-info.jsp", model.asMap());
 	}
 	@RequestMapping(value="/category/{cateId}", method=GET)
-	public ModelAndView viewProductByCategory(@PathVariable Long cateId, @RequestParam(required=false, name="p", defaultValue="1") int pageNumber, Model model) {
+	public ModelAndView viewProductByCategory(@PathVariable Long cateId,
+			@RequestParam(required=false, name="p", defaultValue="1") int pageNumber, Model model) {
 		Page page = new Page(pageNumber);
 		List<dgou_product> prodList = productService.getProductsByCategory(cateId, page);
 		model.addAttribute("prodList", prodList);
@@ -42,6 +51,30 @@ public class ProductController extends BaseController {
 		if (prodList.size() > 0) {
 			model.addAttribute("cateName", prodList.get(0).getPrca().getPrca_name());
 		}
+		if (pageNumber == 1) {
+			return new ModelAndView("/index.jsp", model.asMap());
+		} else if (prodList.size() == 0) {
+			return stringModelAndView("");
+		} else {
+			return new ModelAndView("/product/product-list.jsp");
+		}
+	}
+	@RequestMapping(value="/search", method=POST)
+	public ModelAndView postSearch(@Valid @ModelAttribute("searchForm") SearchForm searchForm,
+			BindingResult result, RedirectAttributes redirAttrs) throws Exception {
+		String keyword = searchForm.getKeyword();
+		String kwEncoded = URLEncoder.encode(keyword, "UTF-8");
+		return new ModelAndView("redirect:/product/search?kw="+kwEncoded, redirAttrs.asMap());
+	}
+	@RequestMapping(value="/search", method=GET)
+	public ModelAndView getSearch(@RequestParam(required=true, name="kw") String keyword,
+			@RequestParam(required=false, name="p", defaultValue="1") int pageNumber, Model model) throws Exception {
+		Page page = new Page(pageNumber);
+		List<dgou_product> prodList = productService.searchProduct(keyword, page);
+		model.addAttribute("prodList", prodList);
+		model.addAttribute("isLastPage", page.getCurrentPage() >= page.getTotalPages());
+		model.addAttribute("requestURI", "/product/search?kw=" + URLEncoder.encode(keyword, "UTF-8"));
+		model.addAttribute("cateName", "搜索结果");
 		if (pageNumber == 1) {
 			return new ModelAndView("/index.jsp", model.asMap());
 		} else if (prodList.size() == 0) {

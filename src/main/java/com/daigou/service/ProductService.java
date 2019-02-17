@@ -19,4 +19,5 @@ public interface ProductService {
 	void addProduct(@Valid ProductForm product);
 	void updatePrice(ProductForm product);
 	List<dgou_product> getProducts(long[] ids);
+	List<dgou_product> searchProduct(String keyword, Page page);
 }

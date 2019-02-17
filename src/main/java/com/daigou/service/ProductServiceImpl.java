@@ -123,12 +123,25 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<dgou_product> getProductsByCategory(Long cateId, Page page) {
-		String hql = "select count(id) from dgou_product where prca.prca_id=:cateId";
+		String hql = "select count(prod_id) from dgou_product where prca.prca_id=:cateId";
 		int count = productDao.queryCountNamedParameters(hql, "cateId", cateId);
 		page.setTotalRecords(count);
 
 		hql = "from dgou_product where prca.prca_id=:cateId order by prod_last_updated desc";
 		List<dgou_product> prodList = productDao.queryListNamedParameters(hql, page, "cateId", cateId);
+		for (dgou_product prod : prodList) {
+			initializeProduct(prod);
+		}
+		return prodList;
+	}
+	@Override
+	public List<dgou_product> searchProduct(String keyword, Page page) {
+		keyword = "%" + keyword + "%";
+		String hql = "from dgou_product where prod_name like :keyword or prod_name_en like :keyword or prod_title like :keyword";
+		int count = productDao.queryCountNamedParameters("select count(prod_id) " + hql, "keyword", keyword);
+		page.setTotalRecords(count);
+
+		List<dgou_product> prodList = productDao.queryListNamedParameters(hql + " order by prod_last_updated desc", page, "keyword", keyword);
 		for (dgou_product prod : prodList) {
 			initializeProduct(prod);
 		}

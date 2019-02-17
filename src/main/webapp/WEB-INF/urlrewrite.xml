@@ -29,6 +29,11 @@
 	</rule>
 
 	<rule>
+		<from>^/product/search$</from>
+		<to type="forward">/s/product/search</to>
+	</rule>
+
+	<rule>
 		<from>^/product/category/(\d+)$</from>
 		<to type="forward">/s/product/category/$1</to>
 	</rule>
