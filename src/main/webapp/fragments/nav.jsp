@@ -37,6 +37,9 @@
 			</form>
 		</div>
 		<div class="navbar-nav" style="padding-left: 10px;">
+			<a class="navbar-link" href="#" style="color: #fff;">购物车</a>
+		</div>
+		<div class="navbar-nav" style="padding-left: 10px;">
 			<a class="navbar-link" href="${ctx}/user/login.jsp" style="color: #fff;">登录/注册</a>
 		</div>
 	</nav>

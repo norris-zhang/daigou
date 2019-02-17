@@ -56,14 +56,14 @@
 			<hr class="hrdelimiter"/>
 			<c:forEach items="${prod.effectivePrices }" var="price">
 				<div style="background-color: #D9534F; height: 30px; text-align: center; color: #fff;"><h5>${price.key.guge.guge_display} &times; ${price.key.count} ￥<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${price.value.prce_amount }"/> +
-				￥<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${prod.prod_gross_weight * price.key.count * 40 }"/>(运费)</h5></div>
+				￥<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${price.value.prce_gross_weight * price.key.count * 40 }"/>(运费)</h5></div>
 			</c:forEach>
 			<hr class="hrdelimiter"/>
-			<form action="#" method="post">
+			<form action="#" method="post" onsubmit="return addToShoppingCart()">
 				<div class="row" style="background-color: #04cee6; margin-left: 0; margin-right: 0;">
 					<div class="col-4 stuffed text-center" style="padding-top: 7px; color: #fff;"><label for="buyno">购买数量：</label></div>
 					<div class="col-4 stuffed"><input class="form-control" type="number" name="buyno" value="1" id="buyno"/></div>
-					<div class="col-4 stuffed"><button class="form-control" type="button" onclick="return constructing()" style="background-color: #04cee6; color: #fff;">加入购物车</button></div>
+					<div class="col-4 stuffed"><button class="form-control" type="submit" onclick="return constructing()" style="background-color: #04cee6; color: #fff;">加入购物车</button></div>
 				</div>
 			</form>
 			<hr class="hrdelimiter"/>
@@ -85,6 +85,9 @@
 		function constructing() {
 			alert("建设中，暂时不能使用在线购买功能，请联系店主");
 			return false;
+		}
+		function addToShoppingCart() {
+			
 		}
 	</script>
 </body>

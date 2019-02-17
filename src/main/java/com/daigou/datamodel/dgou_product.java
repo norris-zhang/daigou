@@ -39,8 +39,6 @@ public class dgou_product extends BaseEntity {
 	@Column
 	private String prod_description;
 	@Column
-	private Double prod_gross_weight;
-	@Column
 	private Date prod_last_updated;
 	@OneToMany(mappedBy="prod")
 	private List<dgou_price> prceList = new ArrayList<>();
@@ -84,12 +82,6 @@ public class dgou_product extends BaseEntity {
 	}
 	public void setProd_description(String prod_description) {
 		this.prod_description = prod_description;
-	}
-	public Double getProd_gross_weight() {
-		return prod_gross_weight;
-	}
-	public void setProd_gross_weight(Double prod_gross_weight) {
-		this.prod_gross_weight = prod_gross_weight;
 	}
 	public Date getProd_last_updated() {
 		return prod_last_updated;

@@ -80,10 +80,6 @@
 					<textarea id="productDescription" name="productDescription" class="form-control" placeholder="产品描述"></textarea>
 				</div>
 				<div class="form-group">
-					<label for="grossWeight">打包重量</label>
-					<input type="number" step="0.01" class="form-control" id="grossWeight" name="grossWeight" placeholder="打包重量">
-				</div>
-				<div class="form-group">
 					<label for="selectGuige">选择规格</label>
 					<select id="selectGuige" name="selectGuige" class="form-control">
 						<option value="0">新规格</option>
@@ -108,6 +104,10 @@
 				<div class="form-group">
 					<label for="priceCount">价格数量</label>
 					<input type="number" step="1" class="form-control" id="priceCount" name="priceCount" placeholder="价格数量">
+				</div>
+				<div class="form-group">
+					<label for="grossWeight">打包重量</label>
+					<input type="number" step="0.01" class="form-control" id="grossWeight" name="grossWeight" placeholder="打包重量">
 				</div>
 				<div class="form-group">
 					<label for="priceAmount">价格</label>

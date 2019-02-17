@@ -158,6 +158,7 @@ public class ProductServiceImpl implements ProductService {
 		dgou_guige guge = prepareGuige(product);
 		dgou_price prce = new dgou_price();
 		prce.setPrce_count(product.getPriceCount());
+		prce.setPrce_gross_weight(product.getGrossWeight());
 		prce.setPrce_amount(product.getPriceAmount());
 		prce.setPrce_effective_date(getStartOfDay(getSystemDate()));
 		prce.setGuge(guge);
@@ -193,7 +194,6 @@ public class ProductServiceImpl implements ProductService {
 		prod.setProd_name_en(product.getProductNameEn());
 		prod.setProd_title(product.getDisplayTitle());
 		prod.setProd_description(product.getProductDescription());
-		prod.setProd_gross_weight(product.getGrossWeight());
 		prod.setProd_last_updated(getSystemDate());
 		productDao.save(prod);
 		return prod;

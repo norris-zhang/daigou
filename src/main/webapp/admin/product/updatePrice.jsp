@@ -70,6 +70,10 @@
 					<input type="number" step="1" class="form-control" id="priceCount" name="priceCount" placeholder="价格数量">
 				</div>
 				<div class="form-group">
+					<label for="grossWeight">打包重量</label>
+					<input type="number" step="0.01" class="form-control" id="grossWeight" name="grossWeight" placeholder="打包重量">
+				</div>
+				<div class="form-group">
 					<label for="priceAmount">价格</label>
 					<input type="number" step="0.01" class="form-control" id="priceAmount" name="priceAmount" placeholder="价格">
 				</div>
@@ -88,6 +92,7 @@
 					<th>规格</th>
 					<th>件数</th>
 					<th>生效日期</th>
+					<th>打包重量</th>
 					<th>价格</th>
 					<th>人民币成本</th>
 					<th>纽币成本</th>
@@ -97,6 +102,7 @@
 					<td>${prce.guge.guge_display}</td>
 					<td>${prce.prce_count}</td>
 					<td>${prce.prce_effective_date}</td>
+					<td>${prce.prce_gross_weight}</td>
 					<td>${prce.prce_amount}</td>
 					<td>${prce.prce_cost_cny}</td>
 					<td>${prce.prce_cost_nzd}</td>

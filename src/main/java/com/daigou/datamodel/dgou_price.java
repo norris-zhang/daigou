@@ -28,6 +28,8 @@ public class dgou_price extends BaseEntity {
 	@Column
 	private int prce_count;
 	@Column
+	private Double prce_gross_weight;
+	@Column
 	private Date prce_effective_date;
 	@Column
 	private double prce_amount;
@@ -58,6 +60,12 @@ public class dgou_price extends BaseEntity {
 	}
 	public void setPrce_count(int prce_count) {
 		this.prce_count = prce_count;
+	}
+	public Double getPrce_gross_weight() {
+		return prce_gross_weight;
+	}
+	public void setPrce_gross_weight(Double prce_gross_weight) {
+		this.prce_gross_weight = prce_gross_weight;
 	}
 	public Date getPrce_effective_date() {
 		return prce_effective_date;

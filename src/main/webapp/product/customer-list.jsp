@@ -3,6 +3,7 @@
 <%@ include file="/fragments/includes.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%request.setAttribute("showCost", request.getParameter("sc")); %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -30,7 +31,6 @@
 }
 </style>
 </head>
-
 <body>
 	<jsp:include page="/fragments/nav.jsp"></jsp:include>
 	<main role="main" class="container">
@@ -55,15 +55,18 @@
 					<tr>
 						<td>
 							<c:forEach items="${prod.effectivePrices }" var="price">
-								<div id="price-${prod.prod_id}" class="priceSelector" data-price='{"prodId":${prod.prod_id}, "amount":${price.value.prce_amount }, "ship":${prod.prod_gross_weight * price.key.count * 40 }}'>${price.key.guge.guge_display} &times; ${price.key.count} ￥<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${price.value.prce_amount }"/> +
-								￥<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${prod.prod_gross_weight * price.key.count * 40 }"/>(运费)</div>
+								<div id="price-${prod.prod_id}" class="priceSelector" data-price='{"prodId":${prod.prod_id}, "amount":${price.value.prce_amount }, "ship":${price.value.prce_gross_weight * price.key.count * 40} }'>${price.key.guge.guge_display} &times; ${price.key.count} ￥<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${price.value.prce_amount }"/> +
+								￥<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${price.value.prce_gross_weight * price.key.count * 40 }"/>(运费)</div>
+								<c:if test="${'Y' eq loginUser.user.user_is_admin && '1' eq showCost}">
+									<div>成本：$<c:out value="${price.value.prce_cost_nzd}"></c:out> ¥<c:out value="${price.value.prce_cost_cny}"></c:out></div>
+								</c:if>
 							</c:forEach>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<button onclick="return reduceCount('count-${prod.prod_id}')"><i class="fas fa-minus"></i></button>
-							<input type="number" id="count-${prod.prod_id}" step="1" value="1" readonly="readonly" style="width: 60px;"/>
+							<input type="number" id="count-${prod.prod_id}" step="1" value="${empty prodCountMap.get(prod.prod_id) ? 1 : prodCountMap.get(prod.prod_id)}" readonly="readonly" style="width: 60px;"/>
 							<button onclick="return increaseCount('count-${prod.prod_id}')"><i class="fas fa-plus"></i></button>
 						</td>
 					</tr>
@@ -110,7 +113,7 @@
 				price += $(this).data('price').amount * count;
 				ship += $(this).data('price').ship * count;
 			});
-			$("#totalAmount").text('¥' + price + ' + ¥' + ship + '(运费) = ¥' + (price + ship));
+			$("#totalAmount").text('¥' + price.toFixed(2) + ' + ¥' + ship.toFixed(2) + '(运费) = ¥' + (price + ship).toFixed(2));
 		}
 	</script>
 </body>
