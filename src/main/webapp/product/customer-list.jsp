@@ -113,6 +113,9 @@
 				price += $(this).data('price').amount * count;
 				ship += $(this).data('price').ship * count;
 			});
+			if (ship < 40) {
+				ship = 40;
+			}
 			$("#totalAmount").text('¥' + price.toFixed(2) + ' + ¥' + ship.toFixed(2) + '(运费) = ¥' + (price + ship).toFixed(2));
 		}
 	</script>

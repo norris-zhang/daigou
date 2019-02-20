@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.daigou.common.JsonFunctions;
 import com.daigou.common.paging.Page;
 import com.daigou.datamodel.dgou_product;
 import com.daigou.service.ProductService;
@@ -87,12 +86,10 @@ public class ProductController extends BaseController {
 	public ModelAndView customerList(@RequestParam(required=false) long[] ids,
 			@RequestParam(required=false) String items,
 			Model model) throws Exception {
-		if (items != null && JsonFunctions.isJSONArray(items)) {
-			Map<Long, Integer> productCountMap = parseProductCountMap(items);
-			model.addAttribute("prodCountMap", productCountMap);
-			if (ids == null) {
-				ids = keySetAsLongArray(productCountMap);
-			}
+		Map<Long, Integer> productCountMap = parseProductCountMap(items);
+		model.addAttribute("prodCountMap", productCountMap);
+		if (ids == null) {
+			ids = keySetAsLongArray(productCountMap);
 		}
 		List<dgou_product> prodList = productService.getProducts(ids);
 		model.addAttribute("prodList", prodList);
@@ -107,13 +104,28 @@ public class ProductController extends BaseController {
 		return ids;
 	}
 	private Map<Long, Integer> parseProductCountMap(String items) {
-		List<Map<String, Object>> jsonArray = JsonFunctions.jsonArray2MapList(items);
 		Map<Long, Integer> map = new HashMap<>();
-		for (Map<String, Object> item : jsonArray) {
-			Object id = item.get("id");
-			Object count = item.get("count");
-			map.put(((Number)id).longValue(), ((Number)count).intValue());
-			System.out.println();
+		if (items == null || items.trim().length() == 0) {
+			return map;
+		}
+		String[] productCounts = items.trim().split("\\|");
+		for (String prodCount : productCounts) {
+			String[] prodIdAndCount = prodCount.split(",");
+			if (prodIdAndCount.length == 0) {
+				continue;
+			} else if (prodIdAndCount.length == 1) {
+				if (prodIdAndCount[0].trim().matches("\\d+")) {
+					map.put(Long.valueOf(prodIdAndCount[0].trim()), 1);
+				}
+			} else {
+				if (prodIdAndCount[0].trim().matches("\\d+")) {
+					Integer count = 1;
+					if (prodIdAndCount[1].trim().matches("\\d+")) {
+						count = Integer.valueOf(prodIdAndCount[1].trim());
+					}
+					map.put(Long.valueOf(prodIdAndCount[0].trim()), count);
+				}
+			}
 		}
 		return map;
 	}
