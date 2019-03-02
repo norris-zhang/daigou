@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%request.setAttribute("kw", request.getParameter("kw")); %>
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,6 +42,13 @@
 			<a class="navbar-link" href="#" style="color: #fff;">购物车</a>
 		</div>
 		<div class="navbar-nav" style="padding-left: 10px;">
-			<a class="navbar-link" href="${ctx}/user/login.jsp" style="color: #fff;">登录/注册</a>
+			<c:choose>
+				<c:when test="${empty loginUser}">
+					<a class="navbar-link" href="${ctx}/user/login" style="color: #fff;">登录/注册</a>
+				</c:when>
+				<c:otherwise>
+					<a class="navbar-link" href="${ctx}/user/logout" style="color: #fff;">退出</a>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</nav>

@@ -79,6 +79,11 @@
 		<to type="forward">/s/user/login</to>
 	</rule>
 
+	<rule>
+		<from>^/user/logout$</from>
+		<to type="forward">/s/user/logout</to>
+	</rule>
+
 <!-- 
 	<rule match-type="wildcard">
 		<from>/blog/archive/**</from>

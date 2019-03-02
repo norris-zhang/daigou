@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/fragments/includes.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%request.setAttribute("showCost", request.getParameter("sc")); %>
 <c:set var="needCloseRow" value="false"></c:set>
 <c:forEach items="${prodList}" var="prod" varStatus="vs">
 	<c:if test="${vs.index % 4 eq 0 }">
@@ -16,7 +17,10 @@
 			</div>
 			<div>
 				<c:forEach items="${prod.effectivePrices }" var="pricePair">
-					<h6>${pricePair.key.guge.guge_display } * ${pricePair.key.count }: ￥${pricePair.value.prce_amount }</h6>
+					<h6>${pricePair.key.guge.guge_display } * ${pricePair.key.count }: ￥${pricePair.value.prce_amount }
+					<c:if test="${'Y' eq loginUser.user.user_is_admin && '1' eq showCost}">
+						($<c:out value="${pricePair.value.prce_cost_nzd}"></c:out> ¥<c:out value="${pricePair.value.prce_cost_cny}"></c:out>)
+					</c:if></h6>
 				</c:forEach>
 			</div>
 		</a>

@@ -44,4 +44,9 @@ public class UserController extends BaseController {
 		}
 		return new ModelAndView("redirect:" + redPath, redirAttrs.asMap());
 	}
+	@RequestMapping(value="/user/logout", method=RequestMethod.GET)
+	public ModelAndView getLogout(HttpServletRequest request, Model model) {
+		request.getSession().removeAttribute("loginUser");
+		return new ModelAndView("redirect:/", model.asMap());
+	}
 }

@@ -20,12 +20,18 @@ public class HomeController extends BaseController {
 		this.productService = productService;
 	}
 	@RequestMapping(value= {"", "/"}, method=RequestMethod.GET)
-	public ModelAndView home(@RequestParam(required=false, name="p", defaultValue="1") int pageNumber, Model model) throws Exception {
+	public ModelAndView home(@RequestParam(required=false, name="p", defaultValue="1") int pageNumber,
+			@RequestParam(required=false, name="sc") String showCost,
+			Model model) throws Exception {
 		Page page = new Page(pageNumber);
 		List<dgou_product> prodList = productService.getAllProducts(page);
 		model.addAttribute("prodList", prodList);
 		model.addAttribute("isLastPage", page.getCurrentPage() >= page.getTotalPages());
-		model.addAttribute("requestURI", "/");
+		String requestURI = "/";
+		if (showCost != null) {
+			requestURI += "?sc=" + showCost;
+		}
+		model.addAttribute("requestURI", requestURI);
 		if (pageNumber == 1) {
 			return new ModelAndView("/index.jsp", model.asMap());
 		} else if (prodList.size() == 0) {

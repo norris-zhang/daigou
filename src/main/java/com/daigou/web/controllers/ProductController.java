@@ -41,12 +41,17 @@ public class ProductController extends BaseController {
 	}
 	@RequestMapping(value="/category/{cateId}", method=GET)
 	public ModelAndView viewProductByCategory(@PathVariable Long cateId,
-			@RequestParam(required=false, name="p", defaultValue="1") int pageNumber, Model model) {
+			@RequestParam(required=false, name="p", defaultValue="1") int pageNumber,
+			@RequestParam(required=false, name="sc") String showCost, Model model) {
 		Page page = new Page(pageNumber);
 		List<dgou_product> prodList = productService.getProductsByCategory(cateId, page);
 		model.addAttribute("prodList", prodList);
 		model.addAttribute("isLastPage", page.getCurrentPage() >= page.getTotalPages());
-		model.addAttribute("requestURI", "/product/category/" + cateId);
+		String requestURI = "/product/category/" + cateId;
+		if (showCost != null) {
+			requestURI += "?sc=" + showCost;
+		}
+		model.addAttribute("requestURI", requestURI);
 		if (prodList.size() > 0) {
 			model.addAttribute("cateName", prodList.get(0).getPrca().getPrca_name());
 		}
@@ -60,19 +65,29 @@ public class ProductController extends BaseController {
 	}
 	@RequestMapping(value="/search", method=POST)
 	public ModelAndView postSearch(@Valid @ModelAttribute("searchForm") SearchForm searchForm,
+			@RequestParam(required=false, name="sc") String showCost,
 			BindingResult result, RedirectAttributes redirAttrs) throws Exception {
 		String keyword = searchForm.getKeyword();
 		String kwEncoded = URLEncoder.encode(keyword, "UTF-8");
-		return new ModelAndView("redirect:/product/search?kw="+kwEncoded, redirAttrs.asMap());
+		String redirUri = "/product/search?kw="+kwEncoded;
+		if (showCost != null) {
+			redirUri += "&sc=" + showCost;
+		}
+		return new ModelAndView("redirect:"+redirUri, redirAttrs.asMap());
 	}
 	@RequestMapping(value="/search", method=GET)
 	public ModelAndView getSearch(@RequestParam(required=true, name="kw") String keyword,
-			@RequestParam(required=false, name="p", defaultValue="1") int pageNumber, Model model) throws Exception {
+			@RequestParam(required=false, name="p", defaultValue="1") int pageNumber,
+			@RequestParam(required=false, name="sc") String showCost, Model model) throws Exception {
 		Page page = new Page(pageNumber);
 		List<dgou_product> prodList = productService.searchProduct(keyword, page);
 		model.addAttribute("prodList", prodList);
 		model.addAttribute("isLastPage", page.getCurrentPage() >= page.getTotalPages());
-		model.addAttribute("requestURI", "/product/search?kw=" + URLEncoder.encode(keyword, "UTF-8"));
+		String requestURI = "/product/search?kw=" + URLEncoder.encode(keyword, "UTF-8");
+		if (showCost != null) {
+			requestURI += "&sc=" + showCost;
+		}
+		model.addAttribute("requestURI", requestURI);
 		model.addAttribute("cateName", "搜索结果");
 		if (pageNumber == 1) {
 			return new ModelAndView("/index.jsp", model.asMap());

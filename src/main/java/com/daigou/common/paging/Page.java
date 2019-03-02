@@ -1,7 +1,7 @@
 package com.daigou.common.paging;
 
 public class Page {
-	public static final int DEFAULT_PAGE_SIZE = 20;
+	public static final int DEFAULT_PAGE_SIZE = 8;
 	private int currentPage;
 	private int pageSize;
 
